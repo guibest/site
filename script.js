@@ -1,20 +1,53 @@
-function carregar(){
-    var msg = window.document.getElementById('msg')
-    var img = window.document.getElementById('imagem')
+function verificar(){
     var data = new Date()
-    var hora = data.getHours()
-    msg.innerHTML = `Agora são ${hora} horas.`
-    if(hora >= 0 && hora < 12){
-        // bom dia
-        img.src= 'manha.jpg'
-        document.body.style.background ='#e2cd9f'
-    }else if(hora >=12 && hora <= 18){
-        // boa tarde
-        img.src = 'tarde.jpg'
-        document.body.style.background = '#b9846f'
+    var ano = data.getFullYear()
+    var fano = document.getElementById('txtano')
+    var res = document.querySelector('div#res')
+
+    if(fano.value.length == 0 || Number(fano.value) > ano){
+        window.alert('Verifique os dados e tente novamente')
     }else{
-        // boa noite
-        img.src = 'noite.jpg'
-        document.body.style.background = '#515154'
+        var fsex = document.getElementsByName('radsex')
+        var idade = ano - Number(fano.value)
+        var genero = ''
+        var img = document.createElement('img')
+        img.setAttribute('id', 'foto')
+
+        if (fsex[0].checked){
+            genero = 'Homem'
+            if (idade >0 && idade < 10){
+                //criança
+                img.setAttribute('src', 'menino.jpg')
+            }else if(idade < 21){
+                //Jovem
+                img.setAttribute('src', 'moco.jpg')
+            }else if( idade <60){
+                //Adulto
+                img.setAttribute('src', 'adulto.jpg')
+            }else{
+                //Idoso
+                img.setAttribute('src', 'idoso.jpg')
+            }
+        }else if(fsex[1].checked){
+            genero = 'Mulher'
+            if (idade >0 && idade< 10){
+                //criança
+                img.setAttribute('src', 'menina.jpg')
+            }else if(idade < 21){
+                //Jovem
+                img.setAttribute('src', 'moca.jpg')
+            }else if( idade <60){
+                //Adulto
+                img.setAttribute('src','adulto.jpg')
+            }else{
+                //Idoso
+                img.setAttribute('src', 'idosa.jpg')
+            }
+        }
+        res.style.textAlign = 'center '
+        res.innerHTML = `Detectamos ${genero} com ${idade } anos`
+        res.appendChild(img)
+       
     }
+
 }
